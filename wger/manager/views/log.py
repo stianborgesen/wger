@@ -51,6 +51,7 @@ from wger.utils.generic_views import (
 )
 from wger.utils.helpers import check_access
 from wger.weight.helpers import process_log_entries, group_log_entries
+from django import forms
 
 
 logger = logging.getLogger(__name__)
@@ -201,6 +202,9 @@ def add(request, pk):
             session_form = HelperWorkoutSessionForm(instance=session)
         else:
             session_form = HelperWorkoutSessionForm()
+            session_form.fields['exerciseday'].initial = pk
+            session_form.fields['exerciseday'].widget = forms.HiddenInput()
+
 
     # Pass the correct forms to the exercise list
     for exercise in exercise_list:

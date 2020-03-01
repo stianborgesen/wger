@@ -789,6 +789,13 @@ class WorkoutSession(models.Model):
         (IMPRESSION_GOOD, _('Good')),
     )
 
+    exerciseday = models.ForeignKey(Day,
+                                    verbose_name=_('Exercise day'),
+                                    null=True)
+    '''
+    Exercise day bound to this session
+    '''
+
     user = models.ForeignKey(User,
                              verbose_name=_('User'))
     '''

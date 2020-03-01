@@ -332,7 +332,8 @@ class WorkoutCalendar(HTMLCalendar):
         # Note: due to circular imports we use can't import the workout session
         # model to access the impression values directly, so they are hard coded
         # here.
-        if entry['session']:
+        session = entry['session']
+        if session:
             # Bad
             if entry['session'].impression == '1':
                 background_css = 'btn-danger'
@@ -355,6 +356,9 @@ class WorkoutCalendar(HTMLCalendar):
                                                                       formatted_date,
                                                                       background_css))
         body.append(repr(day))
+        # Add first two characters of description if session has exercise day with description
+        if session and session.exerciseday and session.exerciseday.description:
+            body.append('</br>' + session.exerciseday.description[0:2])
         body.append('</a>')
         return self.day_cell(cssclass, '{0}'.format(''.join(body)))
 
